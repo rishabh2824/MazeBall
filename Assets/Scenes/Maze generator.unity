@@ -151,6 +151,10 @@ MonoBehaviour:
   _mazeCellPrefab: {fileID: 159085738643117860, guid: 137f327647142b742b8467d2d235f3d9, type: 3}
   _mazeWidth: 20
   _mazeDepth: 20
+  _seed: 0
+  _useSeed: 0
+  _startCell: {fileID: 0}
+  _endCell: {fileID: 0}
 --- !u!4 &247604796
 Transform:
   m_ObjectHideFlags: 0

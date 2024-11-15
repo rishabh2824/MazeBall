@@ -22,9 +22,16 @@ public class MazeGenerator : MonoBehaviour
 
     private MazeCell[,] _mazeGrid;
 
+    [SerializeField]
+    private MazeCell _startCell;
+
+    [SerializeField]
+    private MazeCell _endCell;
+
+
     void Start()
     {
-        if (_useSeed) 
+        if (_useSeed)
         {
             Random.InitState(_seed);
         }
@@ -45,7 +52,24 @@ public class MazeGenerator : MonoBehaviour
             }
         }
 
-        GenerateMaze(null, _mazeGrid[0, 0]);
+
+        _startCell = _mazeGrid[0, 0];
+        _endCell = _mazeGrid[_mazeWidth - 1, _mazeDepth - 1];
+
+
+        _startCell.Visit();
+        _endCell.Visit();
+        SetCellColor(_startCell, Color.green);
+        SetCellColor(_endCell, Color.red);
+
+
+        _startCell.ClearLeftWall();
+        _endCell.ClearRightWall();
+
+        // Generate the maze
+        GenerateMaze(null, _startCell);
+
+        //GenerateMaze(null, _mazeGrid[0, 0]);
     }
 
 
@@ -82,7 +106,7 @@ public class MazeGenerator : MonoBehaviour
         if (x + 1 < _mazeWidth)
         {
             var cellToRight = _mazeGrid[x + 1, z];
-            
+
             if (cellToRight.IsVisited == false)
             {
                 yield return cellToRight;
@@ -153,6 +177,31 @@ public class MazeGenerator : MonoBehaviour
             previousCell.ClearBackWall();
             currentCell.ClearFrontWall();
             return;
+        }
+    }
+
+    private void SetCellColor(MazeCell cell, Color color)
+    {
+        // Find the "Unvisited Block/Graphics" child object
+        Transform graphicsTransform = cell.transform.Find("Unvisited Block/Graphics");
+
+        if (graphicsTransform != null)
+        {
+            Renderer renderer = graphicsTransform.GetComponent<Renderer>();
+
+            if (renderer != null)
+            {
+                renderer.material = new Material(renderer.material); // Ensure a unique material instance
+                renderer.material.color = color;
+            }
+            else
+            {
+                Debug.LogWarning("No Renderer found on Graphics within Unvisited Block");
+            }
+        }
+        else
+        {
+            Debug.LogWarning("Graphics child not found in Unvisited Block of MazeCell prefab");
         }
     }
 }
