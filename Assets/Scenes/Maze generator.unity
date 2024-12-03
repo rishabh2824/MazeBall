@@ -152,7 +152,7 @@ MonoBehaviour:
   _mazeWidth: 20
   _mazeDepth: 20
   _seed: 0
-  _useSeed: 0
+  _useSeed: 1
   _startCell: {fileID: 0}
   _endCell: {fileID: 0}
 --- !u!4 &247604796
