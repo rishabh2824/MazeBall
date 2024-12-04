@@ -3,37 +3,48 @@ using UnityEngine;
 public class GyroSimulator : MonoBehaviour
 {
     private Quaternion simulatedGyro;
-    private Vector3 acceleration = Vector3.zero; // Acceleration vector
-    public float accelerationFactor = 20.0f; // Adjust this value to control the speed of acceleration
+    private Rigidbody rb; // Rigidbody for physics-based movement
+    public float accelerationFactor = 20.0f; // Controls the speed of the ball
+    public float maxSpeed = 10.0f; // Maximum speed to cap ball movement
 
     void Start()
     {
-        Input.gyro.enabled = true; // Enable gyroscope (if running on a mobile device)
+        Input.gyro.enabled = true; // Enable gyroscope (if on a mobile device)
         simulatedGyro = Quaternion.identity;
+        rb = GetComponent<Rigidbody>(); // Get the Rigidbody component
+
+        // Check if Rigidbody exists
+        if (rb == null)
+        {
+            Debug.LogError("Rigidbody component is missing from the ball. Please add one to the GameObject.");
+        }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Vector3 direction;
 
 #if UNITY_EDITOR
-        // Use keyboard or mouse input to simulate rotation for testing
+        // Simulate rotation using keyboard input in the editor
         float rotationSpeed = 100.0f;
-        float rotateX = Input.GetAxis("Horizontal") * rotationSpeed * Time.deltaTime;
-        float rotateY = Input.GetAxis("Vertical") * rotationSpeed * Time.deltaTime;
+        float rotateX = Input.GetAxis("Horizontal") * rotationSpeed * Time.fixedDeltaTime;
+        float rotateY = Input.GetAxis("Vertical") * rotationSpeed * Time.fixedDeltaTime;
         simulatedGyro *= Quaternion.Euler(rotateY, rotateX, 0);
 
-        // Derive acceleration from simulated gyro's forward direction
+        // Derive direction from simulated gyro
         direction = simulatedGyro * Vector3.forward;
 #else
         // Use actual gyroscope data on a mobile device
         direction = Input.gyro.attitude * Vector3.forward;
 #endif
 
-        // Use the direction's x and z components to apply acceleration
-        acceleration = new Vector3(direction.x, 0, direction.z) * accelerationFactor;
+        // Calculate velocity based on gyro direction
+        Vector3 targetVelocity = new Vector3(direction.x, 0, direction.z) * accelerationFactor;
 
-        // Update the object's position
-        transform.position += acceleration * Time.deltaTime;
+        // Directly set the Rigidbody's velocity for immediate responsiveness
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.ClampMagnitude(targetVelocity, maxSpeed);
+        }
     }
 }
