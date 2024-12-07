@@ -12,7 +12,9 @@ public class MazeEnd : MonoBehaviour
         if (int.Parse(currentLevel[1]) == level)
         {
             PlayerPrefs.SetInt("UnlockedLevel", level++);
-            SceneManager.LoadScene("Main Menu");
+            LevelComplete lc = gameObject.GetComponent<LevelComplete>();
+            lc.Pause();
+            // SceneManager.LoadScene("Main Menu");
         }
     }
 }
