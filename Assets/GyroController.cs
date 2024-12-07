@@ -5,7 +5,7 @@ public class GyroSimulator : MonoBehaviour
     private Quaternion simulatedGyro;
     private Rigidbody rb; // Rigidbody for physics-based movement
     public float accelerationFactor = 20.0f; // Controls the speed of the ball
-    public float maxSpeed = 10.0f; // Maximum speed to cap ball movement
+    public float maxSpeed = 20.0f; // Maximum speed to cap ball movement
 
     void Start()
     {
