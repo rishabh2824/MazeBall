@@ -133,6 +133,7 @@ GameObject:
   - component: {fileID: 829471962}
   - component: {fileID: 829471961}
   - component: {fileID: 829471960}
+  - component: {fileID: 829471966}
   m_Layer: 0
   m_Name: End Point
   m_TagString: Untagged
@@ -270,6 +271,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &829471966
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 829471959}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5627fb94215d9f5409ec7114276bf7e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelCompleteMenu: {fileID: 1425978887}
 --- !u!1 &927246769
 GameObject:
   m_ObjectHideFlags: 0
@@ -471,6 +485,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!1 &1425978887 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7676340966779737793, guid: 791585f4774c9c149a11857a106d565e, type: 3}
+  m_PrefabInstance: {fileID: 1656989535}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1591849426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1098,6 +1117,10 @@ PrefabInstance:
     - target: {fileID: 2798942193995507000, guid: f8979f7ba47046f4ab65e780abcf3df7, type: 3}
       propertyPath: m_Name
       value: PlayerBall
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798942193995507000, guid: f8979f7ba47046f4ab65e780abcf3df7, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
