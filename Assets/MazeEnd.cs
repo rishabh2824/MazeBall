@@ -14,7 +14,7 @@ public class MazeEnd : MonoBehaviour
             PlayerPrefs.SetInt("UnlockedLevel", level++);
             LevelComplete lc = gameObject.GetComponent<LevelComplete>();
             lc.Pause();
-            // SceneManager.LoadScene("Main Menu");
+             //SceneManager.LoadScene("Main Menu");
         }
     }
 }
