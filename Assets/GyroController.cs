@@ -35,11 +35,11 @@ public class GyroSimulator : MonoBehaviour
         direction = simulatedGyro * Vector3.forward;
 #else
         // Use actual gyroscope data on a mobile device
-        direction = Input.gyro.attitude * Vector3.forward;
+        direction = Input.gyro.attitude * Vector3.one;
 #endif
 
         // Calculate velocity based on gyro direction
-        Vector3 targetVelocity = new Vector3(direction.x, 0, direction.z) * accelerationFactor;
+        Vector3 targetVelocity = new Vector3(direction.z, 0, direction.x) * accelerationFactor;
 
         // Directly set the Rigidbody's velocity for immediate responsiveness
         if (rb != null)
